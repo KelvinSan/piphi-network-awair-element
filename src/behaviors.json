@@ -1084,7 +1084,7 @@
               ]
             },
             "parameters": {
-              "webhook_url": "{{discordWebhookUrl}}",
+              "webhook_url": "",
               "message": "CO2 is above 1000 ppm. Time to bring fresh air into the room.",
               "username": "PiPhi Air"
             },
@@ -1220,7 +1220,7 @@
               ]
             },
             "parameters": {
-              "webhook_url": "{{discordWebhookUrl}}",
+              "webhook_url": "",
               "message": "PM2.5 is above 35 ug/m3. Consider filtering the air or opening a window if outdoor air is clean.",
               "username": "PiPhi Air"
             },

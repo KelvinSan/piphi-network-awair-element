@@ -807,7 +807,7 @@ def test_awair_behaviors_expose_discord_webhook_action_and_templates() -> None:
         action = template["config"]["actions"][0]
         assert action["action"] == "discord_webhook"
         assert action["sourceRef"]["optionKey"] == "discord_webhook"
-        assert action["parameters"]["webhook_url"] == "{{discordWebhookUrl}}"
+        assert action["parameters"]["webhook_url"] == ""
 
     pm25_template = next(
         template for template in behaviors["templates"]
