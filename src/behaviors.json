@@ -134,7 +134,7 @@
               "max": 35,
               "default": 27,
               "step": 0.5,
-              "unit": "°C",
+              "unit": "\u00b0C",
               "required": true
             }
           ],
@@ -210,7 +210,7 @@
               "max": 35,
               "default": 16,
               "step": 0.5,
-              "unit": "°C",
+              "unit": "\u00b0C",
               "required": true
             }
           ],
@@ -1398,5 +1398,69 @@
       }
     }
   ],
-  "behaviorSchemaVersion": "integration.behaviors.v2"
+  "behaviorSchemaVersion": "integration.behaviors.v2",
+  "telemetry": {
+    "capabilityMappings": [
+      {
+        "nativeMetric": "absolute_humidity",
+        "capability": "sensor.absolute_humidity"
+      },
+      {
+        "nativeMetric": "co2",
+        "capability": "sensor.co2"
+      },
+      {
+        "nativeMetric": "co2_est",
+        "capability": "sensor.co2_est"
+      },
+      {
+        "nativeMetric": "co2_est_baseline",
+        "capability": "sensor.co2_est_baseline"
+      },
+      {
+        "nativeMetric": "dew_point",
+        "capability": "sensor.dew_point"
+      },
+      {
+        "nativeMetric": "humidity",
+        "capability": "sensor.humidity"
+      },
+      {
+        "nativeMetric": "pm10_est",
+        "capability": "sensor.pm10_est"
+      },
+      {
+        "nativeMetric": "pm25",
+        "capability": "sensor.pm25"
+      },
+      {
+        "nativeMetric": "refresh",
+        "capability": "sensor.refresh"
+      },
+      {
+        "nativeMetric": "score",
+        "capability": "sensor.score"
+      },
+      {
+        "nativeMetric": "temperature",
+        "capability": "sensor.temperature"
+      },
+      {
+        "nativeMetric": "voc",
+        "capability": "sensor.voc"
+      },
+      {
+        "nativeMetric": "voc_baseline",
+        "capability": "sensor.voc_baseline"
+      },
+      {
+        "nativeMetric": "voc_ethanol_raw",
+        "capability": "sensor.voc_ethanol_raw"
+      },
+      {
+        "nativeMetric": "voc_h2_raw",
+        "capability": "sensor.voc_h2_raw"
+      }
+    ]
+  }
 }

@@ -105,7 +105,8 @@ async def fetch_awair_state(
     device_id: str,
     container_id: str | None = None,
 ) -> Dict[str, Any]:
-    previous_state = (registry.get(device_id) or {}).get("latest_state") or {}
+    device_entry = registry.get(device_id) or {}
+    previous_state = device_entry.get("latest_state") or {}
     async with httpx.AsyncClient() as client:
         response = await client.get(f"http://{ip_address}{AWAIR_LATEST_AIR_DATA_PATH}")
         response.raise_for_status()
@@ -118,6 +119,7 @@ async def fetch_awair_state(
             process_state=runtime_context.process_state,
             telemetry_client=telemetry_client,
             auth_context=runtime_context.auth,
+            config_id=str(device_entry.get("config_id") or device_id),
             device_id=device_id,
             metrics=_build_telemetry_payload(payload),
             container_id=container_id,
