@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:78144aa704059431927097a82b8918275190fea47e167bb71a0ec040fd18eaed"
+content_hash = "sha256:4e9a2a13552adfa8ab8d1dee4185fc54cd1b8c9b9a4ca0dd169153a3915cd250"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -451,7 +451,7 @@ files = [
 
 [[package]]
 name = "piphi-runtime-kit-python"
-version = "0.6.0"
+version = "0.7.1"
 requires_python = ">=3.11"
 summary = "PiPhi Network runtime integration helpers"
 groups = ["default"]
@@ -460,7 +460,7 @@ dependencies = [
     "pydantic<2.14,>=2.8",
 ]
 files = [
-    {file = "piphi_runtime_kit_python-0.6.0-py3-none-any.whl", hash = "sha256:c2c135eb9f83ebd0900c6d0ee0164cefa8789d9dedb6646c2d46ec6738a49248"},
+    {file = "piphi_runtime_kit_python-0.7.1-py3-none-any.whl", hash = "sha256:6ad08349ef2940d560ca8dec9bfd80ab679341de39a281edeca4857cdd649eeb"},
 ]
 
 [[package]]

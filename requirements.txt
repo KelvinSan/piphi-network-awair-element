@@ -28,7 +28,7 @@ markupsafe==3.0.3
 mdurl==0.1.2
 packaging==26.2
 pefile==2024.8.26; sys_platform == "win32"
-piphi-runtime-kit-python==0.6.0
+piphi-runtime-kit-python==0.7.1
 pydantic-core==2.46.3
 pydantic-extra-types==2.11.1
 pydantic-settings==2.14.0
