@@ -1,5 +1,18 @@
-from fastapi import APIRouter, HTTPException
+from __future__ import annotations
+
+import os
+from pathlib import Path
+from typing import Any
+
+from fastapi import APIRouter, HTTPException, Request
 import httpx
+from piphi_runtime_kit_python import (
+    AutomationActionRequest,
+    AutomationActionResult,
+    AutomationRegistry,
+    SQLiteAutomationIdempotencyStore,
+)
+from piphi_runtime_kit_python.fastapi import dispatch_automation_action_from_fastapi
 
 from com_piphi_await_element.contract.config.routes import trigger_refresh
 from com_piphi_await_element.lib.manifest import load_manifest
@@ -8,6 +21,15 @@ from com_piphi_await_element.lib.store import get_primary_device, registry
 
 
 router = APIRouter(tags=['command'])
+_ledger_path = Path(
+    os.getenv(
+        'PIPHI_AUTOMATION_LEDGER_PATH',
+        '/.piphinetwork/automation-actions.sqlite3',
+    )
+)
+automation_registry = AutomationRegistry(
+    idempotency_store=SQLiteAutomationIdempotencyStore(_ledger_path)
+)
 
 COMMAND_ALIASES = {
     'refresh_readings': 'refresh',
@@ -106,8 +128,70 @@ async def _send_discord_webhook(params: dict) -> dict:
     }
 
 
+async def _execute_registered_command(
+    action_request: AutomationActionRequest,
+) -> AutomationActionResult:
+    extras = action_request.model_extra or {}
+    target = extras.get('target') if isinstance(extras.get('target'), dict) else {}
+    common_result: dict[str, Any] = {
+        'ok': True,
+        'status': 'ok',
+        'command': action_request.command,
+        'contract_version': extras.get('contract_version'),
+        'device_id': action_request.device_id,
+        'target': target,
+        'params': action_request.args,
+    }
+    if action_request.command == 'discord_webhook':
+        try:
+            delivered = await _send_discord_webhook(action_request.args)
+        except HTTPException as exc:
+            return AutomationActionResult.failure(
+                str(exc.detail),
+                retryable=exc.status_code >= 500,
+                metadata={'status_code': exc.status_code},
+            )
+        except Exception as exc:
+            return AutomationActionResult.failure(
+                'Discord delivery outcome is unknown; review before retrying',
+                retryable=False,
+                metadata={
+                    'status_code': 503,
+                    'delivery_status': 'ambiguous',
+                    'error_type': type(exc).__name__,
+                },
+            )
+        return AutomationActionResult.success({**common_result, 'result': delivered})
+    if action_request.command == 'notify':
+        return AutomationActionResult.success(
+            {
+                **common_result,
+                'result': {
+                    'delivered': True,
+                    'channel': action_request.args.get('channel', 'in_app'),
+                    'message': action_request.args.get('message', ''),
+                },
+            }
+        )
+    try:
+        refreshed_state = await trigger_refresh(str(action_request.device_id or ''))
+    except HTTPException as exc:
+        return AutomationActionResult.failure(
+            str(exc.detail),
+            retryable=exc.status_code >= 500,
+            metadata={'status_code': exc.status_code},
+        )
+    return AutomationActionResult.success(
+        {**common_result, 'result': refreshed_state}
+    )
+
+
+for _registered_command in sorted(IMPLEMENTED_COMMANDS):
+    automation_registry.action(_registered_command)(_execute_registered_command)
+
+
 @router.post('/command')
-async def execute_command(payload: CommandRequest):
+async def execute_command(payload: CommandRequest, request: Request):
     manifest = load_manifest()
     commands = manifest.get('commands', {})
     command = _command_name(payload)
@@ -116,41 +200,32 @@ async def execute_command(payload: CommandRequest):
     _validate_capability(payload)
     params = _command_params(payload)
     if command == 'discord_webhook':
-        result = await _send_discord_webhook(params)
-        return {
-            'ok': True,
-            'status': 'ok',
+        _discord_webhook_url(params)
+    device_id = (
+        payload.device_id or _target_value(payload, 'device_id')
+        if command in {'discord_webhook', 'notify'}
+        else _resolve_device_id(payload)
+    )
+    result = await dispatch_automation_action_from_fastapi(
+        automation_registry,
+        request,
+        {
+            **payload.model_dump(mode='python'),
             'command': command,
-            'contract_version': payload.contract_version,
-            'device_id': payload.device_id or _target_value(payload, 'device_id'),
-            'target': payload.target,
-            'params': params,
-            'result': result,
-        }
-    if command == 'notify':
-        return {
-            'ok': True,
-            'status': 'ok',
-            'command': command,
-            'contract_version': payload.contract_version,
-            'device_id': payload.device_id or _target_value(payload, 'device_id'),
-            'target': payload.target,
-            'params': params,
-            'result': {
-                'delivered': True,
-                'channel': params.get('channel', 'in_app'),
-                'message': params.get('message', ''),
-            },
-        }
-    device_id = _resolve_device_id(payload)
-    refreshed_state = await trigger_refresh(device_id)
-    return {
-        'ok': True,
-        'status': 'ok',
-        'command': command,
-        'contract_version': payload.contract_version,
-        'device_id': device_id,
-        'target': payload.target,
-        'params': params,
-        'result': refreshed_state,
-    }
+            'device_id': device_id,
+            'args': params,
+        },
+    )
+    if not result.ok:
+        detail: Any = result.error
+        if result.metadata.get('delivery_status') == 'ambiguous':
+            detail = {
+                'ok': False,
+                'error': 'delivery_ambiguous',
+                'message': result.error,
+            }
+        raise HTTPException(
+            status_code=int(result.metadata.get('status_code') or 503),
+            detail=detail,
+        )
+    return {**result.result, 'replayed': result.replayed}

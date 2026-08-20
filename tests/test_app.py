@@ -821,16 +821,32 @@ def test_awair_behaviors_expose_discord_webhook_action_and_templates() -> None:
 def test_awair_command_refresh_returns_state_for_explicit_device(monkeypatch) -> None:
     reset_runtime_state()
     monkeypatch.setattr(command_module, "load_manifest", lambda: {"commands": {"refresh": {}}})
+    refresh_calls: list[str] = []
 
     async def fake_trigger_refresh(device_id: str):
+        refresh_calls.append(device_id)
         return {"device_id": device_id, "state": {"temp": 22.1}}
 
     monkeypatch.setattr(command_module, "trigger_refresh", fake_trigger_refresh)
+    headers = {"X-PiPhi-Idempotency-Key": "awair-refresh-idempotency-1"}
 
     with TestClient(app) as client:
-        response = client.post("/command", json={"command": "refresh", "device_id": "awair-1"})
+        response = client.post(
+            "/command",
+            json={"command": "refresh", "device_id": "awair-1"},
+            headers=headers,
+        )
+        replay = client.post(
+            "/command",
+            json={"command": "refresh", "device_id": "awair-1"},
+            headers=headers,
+        )
 
     assert response.status_code == 200
+    assert replay.status_code == 200
+    assert response.json()["replayed"] is False
+    assert replay.json()["replayed"] is True
+    assert refresh_calls == ["awair-1"]
     assert response.json()["status"] == "ok"
     assert response.json()["device_id"] == "awair-1"
     assert response.json()["result"]["state"]["temp"] == 22.1
@@ -891,6 +907,7 @@ def test_awair_command_sends_discord_webhook(monkeypatch) -> None:
             return FakeDiscordResponse()
 
     monkeypatch.setattr(command_module.httpx, "AsyncClient", FakeAsyncClient)
+    headers = {"X-PiPhi-Idempotency-Key": "awair-discord-idempotency-1"}
 
     with TestClient(app) as client:
         response = client.post(
@@ -907,10 +924,30 @@ def test_awair_command_sends_discord_webhook(monkeypatch) -> None:
                     "username": "PiPhi Air",
                 },
             },
+            headers=headers,
+        )
+        replay = client.post(
+            "/command",
+            json={
+                "contract_version": "automation.runtime.command.v1",
+                "command": "discord_webhook",
+                "target": {"device_id": "awair-1"},
+                "capability": "notification.discord_webhook",
+                "capability_requirements": ["notification.discord_webhook"],
+                "params": {
+                    "webhook_url": "https://discord.com/api/webhooks/123/token",
+                    "message": "CO2 is high",
+                    "username": "PiPhi Air",
+                },
+            },
+            headers=headers,
         )
 
     body = response.json()
     assert response.status_code == 200
+    assert replay.status_code == 200
+    assert response.json()["replayed"] is False
+    assert replay.json()["replayed"] is True
     assert body["ok"] is True
     assert body["command"] == "discord_webhook"
     assert body["result"]["channel"] == "discord"
