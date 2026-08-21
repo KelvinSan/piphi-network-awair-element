@@ -2,7 +2,7 @@
   "manifest_version": "1.0",
   "id": "awair-element-local-api",
   "name": "Awair Element (Local API)",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Integration for Awair Element devices over the local network",
   "maintainer": {
     "name": "PiPhi Network",
@@ -18,7 +18,7 @@
     "linux": {
       "type": "container",
       "container": {
-        "image": "piphinetwork/awair-element:0.1.9",
+        "image": "piphinetwork/awair-element:0.1.10",
         "ports": [
           {
             "container": 3665,
