@@ -1,0 +1,60 @@
+{
+  "schema_version": "1",
+  "identity": {"publisher_id": "io.piphi", "package_id": "awair-air-quality", "version": "0.1.10"},
+  "name": "Awair Air Quality",
+  "description": "Awair Element air-quality score and the readings behind it.",
+  "origin": "integration",
+  "owning_integration_id": "awair-element-local-api",
+  "sdk_version_range": ">=0.6.1,<0.7",
+  "requires_integrations": [{"integration_id": "awair-element-local-api", "version_range": ">=0.1,<1", "optional": false}],
+  "recommended_for_integrations": ["awair-element-local-api"],
+  "widgets": [{
+    "id": "air-quality-overview",
+    "name": "Awair Air Quality Overview",
+    "description": "Score, carbon dioxide, particulates, VOC, temperature, and humidity from one Awair Element.",
+    "runtime": "declarative",
+    "certification": {
+      "schema_version": "1",
+      "verified_gates": ["runtime", "persistence", "binding", "states", "responsive", "themes", "accessibility", "save-reload", "performance"],
+      "evidence": {
+        "runtime": ["core-profile:declarative-v1/runtime"],
+        "persistence": ["core-profile:declarative-v1/persistence"],
+        "binding": ["repo:tests/test_experience.py::test_air_quality_experience_matches_runtime_manifest"],
+        "states": ["core-profile:declarative-v1/states"],
+        "responsive": ["core-profile:declarative-v1/responsive"],
+        "themes": ["core-profile:declarative-v1/themes"],
+        "accessibility": ["core-profile:declarative-v1/accessibility"],
+        "save-reload": ["core-profile:declarative-v1/save-reload"],
+        "performance": ["core-profile:declarative-v1/performance"]
+      }
+    },
+    "presentation": {"contract_version": "1", "shell": "core", "content_surface": "transparent", "typography": "core", "appearance_controls": ["icon", "title", "surface", "opacity", "radius", "shadow"]},
+    "interaction_targets": [
+      {"id": "card", "label": "Awair air quality", "kind": "card", "allowed_actions": ["more-info", "popout", "refresh"], "default_action": "more-info"},
+      {"id": "score", "label": "Air quality score", "kind": "binding", "binding_slot_id": "score", "allowed_actions": ["more-info", "history", "popout"], "default_action": "more-info"},
+      {"id": "co2", "label": "Carbon dioxide", "kind": "binding", "binding_slot_id": "co2", "allowed_actions": ["more-info", "history", "popout"], "default_action": "more-info"},
+      {"id": "pm25", "label": "PM2.5", "kind": "binding", "binding_slot_id": "pm25", "allowed_actions": ["more-info", "history", "popout"], "default_action": "more-info"},
+      {"id": "voc", "label": "VOC", "kind": "binding", "binding_slot_id": "voc", "allowed_actions": ["more-info", "history", "popout"], "default_action": "more-info"},
+      {"id": "temperature", "label": "Temperature", "kind": "binding", "binding_slot_id": "temperature", "allowed_actions": ["more-info", "history", "popout"], "default_action": "more-info"},
+      {"id": "humidity", "label": "Humidity", "kind": "binding", "binding_slot_id": "humidity", "allowed_actions": ["more-info", "history", "popout"], "default_action": "more-info"}
+    ],
+    "binding_slots": [
+      {"id": "score", "label": "Air quality score", "required": true, "binding_modes": ["read"], "capability_requirements": ["score"], "compatible_integration_ids": ["awair-element-local-api"]},
+      {"id": "co2", "label": "Carbon dioxide", "required": false, "binding_modes": ["read"], "capability_requirements": ["co2"], "compatible_integration_ids": ["awair-element-local-api"]},
+      {"id": "pm25", "label": "PM2.5", "required": false, "binding_modes": ["read"], "capability_requirements": ["pm25"], "compatible_integration_ids": ["awair-element-local-api"]},
+      {"id": "voc", "label": "VOC", "required": false, "binding_modes": ["read"], "capability_requirements": ["voc"], "compatible_integration_ids": ["awair-element-local-api"]},
+      {"id": "temperature", "label": "Temperature", "required": false, "binding_modes": ["read"], "capability_requirements": ["temperature"], "compatible_integration_ids": ["awair-element-local-api"]},
+      {"id": "humidity", "label": "Humidity", "required": false, "binding_modes": ["read"], "capability_requirements": ["humidity"], "compatible_integration_ids": ["awair-element-local-api"]}
+    ],
+    "recipe": {"schema_version": "1", "layout": "grid", "columns": 2, "items": [
+      {"type": "metric", "slot_id": "score", "label": "Air quality", "format": "percent", "domain": "air_quality", "emphasis": "hero", "action": {"type": "details", "label": "View air quality details"}},
+      {"type": "metric", "slot_id": "co2", "label": "CO₂", "domain": "air_quality", "action": {"type": "details", "label": "View carbon dioxide details"}},
+      {"type": "metric", "slot_id": "pm25", "label": "PM2.5", "domain": "air_quality", "action": {"type": "details", "label": "View PM2.5 details"}},
+      {"type": "metric", "slot_id": "voc", "label": "VOC", "domain": "air_quality", "action": {"type": "details", "label": "View VOC details"}},
+      {"type": "metric", "slot_id": "temperature", "label": "Temperature", "format": "temperature", "domain": "temperature", "action": {"type": "details", "label": "View temperature details"}},
+      {"type": "metric", "slot_id": "humidity", "label": "Humidity", "format": "percent", "domain": "humidity", "action": {"type": "details", "label": "View humidity details"}}
+    ]},
+    "default_column_span": 4,
+    "default_row_span": 3
+  }]
+}
