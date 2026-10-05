@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pdm
+      - run: pdm install -G dev --frozen-lockfile
+      - name: Validate and test
+        env:
+          PYTHONPATH: src
+        run: |
+          python -m compileall -q src tests scripts
+          python -m json.tool src/manifest.json >/dev/null
+          python -m json.tool src/behaviors.json >/dev/null
+          pdm run pytest -q
+      - name: Build release container
+        run: docker build --file dockerfile --tag awair-release-smoke .
