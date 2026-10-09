@@ -1,6 +1,6 @@
 {
   "schema_version": "1",
-  "identity": {"publisher_id": "io.piphi", "package_id": "awair-air-quality", "version": "0.1.11"},
+  "identity": {"publisher_id": "io.piphi", "package_id": "awair-air-quality", "version": "0.1.12"},
   "name": "Awair Air Quality",
   "description": "Awair Element air-quality score and the readings behind it.",
   "origin": "integration",

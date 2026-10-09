@@ -17,6 +17,7 @@ SEMVER_RE = re.compile(
     r"(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$"
 )
 PYPROJECT_VERSION_RE = re.compile(r'(?m)^(version\s*=\s*")([^"]+)(")$')
+EXPERIENCE_VERSION_RE = re.compile(r'("identity"\s*:\s*\{.*?"version"\s*:\s*")[^"]+("\s*\})', re.DOTALL)
 DEFAULT_PREID = "alpha"
 BUMP_CHOICES = (
     "major",
@@ -115,6 +116,7 @@ def parse_args() -> argparse.Namespace:
         default="src/manifest.json",
         help="Path to manifest.json, relative to repo-root unless absolute.",
     )
+    parser.add_argument("--experience", default="experiences/air-quality/package.source.json")
     parser.add_argument(
         "--docker-image",
         default=None,
@@ -300,6 +302,7 @@ def main() -> int:
     repo_root = resolve_repo_root(args.repo_root)
     pyproject_path = resolve_path(repo_root, args.pyproject)
     manifest_path = resolve_path(repo_root, args.manifest)
+    experience_path = resolve_path(repo_root, args.experience)
 
     pyproject_text = pyproject_path.read_text(encoding="utf-8")
     pyproject_version = read_pyproject_version(pyproject_text)
@@ -331,6 +334,14 @@ def main() -> int:
 
     pyproject_path.write_text(write_pyproject_version(pyproject_text, target_version), encoding="utf-8")
     dump_manifest(manifest_path, manifest)
+    if experience_path.exists():
+        experience_text = experience_path.read_text(encoding="utf-8")
+        updated_experience, count = EXPERIENCE_VERSION_RE.subn(
+            rf"\g<1>{target_version}\g<2>", experience_text, count=1
+        )
+        if count != 1:
+            raise ValueError(f"Unable to update experience version in {experience_path}")
+        experience_path.write_text(updated_experience, encoding="utf-8")
     print(target_version)
     return 0
 
