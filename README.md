@@ -16,8 +16,8 @@ UI config.
 
 ## Runtime SDK and testkit
 
-- runtime SDK: `piphi-runtime-kit-python==0.6.0`
-- test helper: `piphi-runtime-testkit-python==0.1.1`
+- runtime SDK: `piphi-runtime-kit-python==0.8.1`
+- test helper: `piphi-runtime-testkit-python==0.1.4`
 
 Both the runtime SDK and the Python testkit are installed from PyPI, which
 keeps local development and GitHub release CI aligned on the same published

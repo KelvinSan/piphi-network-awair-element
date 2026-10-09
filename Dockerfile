@@ -8,7 +8,7 @@ RUN mkdir /integration \
 
 COPY requirements.txt ./integration/requirements.txt
 
-ARG PIPHI_RUNTIME_KIT_VERSION=0.7.1
+ARG PIPHI_RUNTIME_KIT_VERSION=0.8.1
 
 RUN pip install --no-cache-dir --upgrade -r /integration/requirements.txt \
     && pip install --no-cache-dir --upgrade "piphi-runtime-kit-python==${PIPHI_RUNTIME_KIT_VERSION}"

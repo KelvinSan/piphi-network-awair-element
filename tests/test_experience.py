@@ -61,7 +61,7 @@ def test_air_quality_experience_matches_runtime_manifest() -> None:
 def test_release_container_uses_current_sdk_and_non_root_persistence() -> None:
     for name in ("Dockerfile", "dockerfile"):
         source = (ROOT / name).read_text()
-        assert "PIPHI_RUNTIME_KIT_VERSION=0.7.1" in source
+        assert "PIPHI_RUNTIME_KIT_VERSION=0.8.1" in source
         assert "USER piphi" in source
         assert 'VOLUME ["/data/awair"]' in source
         assert "PIPHI_AUTOMATION_LEDGER_PATH=/data/awair/automation-actions.sqlite3" in source

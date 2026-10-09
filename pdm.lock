@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:4540a43f19fd1814a4a17a9504024f13416f6c3e4eccdf4d35f527d5c68e7759"
+content_hash = "sha256:46e5810b42b2fd154d7df5927618d077b6b8ad2b51ff083cbb58233fba72b6c7"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -687,7 +687,7 @@ files = [
 
 [[package]]
 name = "piphi-runtime-testkit-python"
-version = "0.1.3"
+version = "0.1.4"
 requires_python = ">=3.11"
 summary = "Pytest-first helpers for testing PiPhi runtime integrations"
 groups = ["dev"]
@@ -695,8 +695,8 @@ dependencies = [
     "pytest<9.0,>=8.3",
 ]
 files = [
-    {file = "piphi_runtime_testkit_python-0.1.3-py3-none-any.whl", hash = "sha256:d58e80c9808df93e68d25b3b0972cf89693697c6b470b488e16ed15ff1694c3a"},
-    {file = "piphi_runtime_testkit_python-0.1.3.tar.gz", hash = "sha256:43e4dcd08fab45c2434d8ea23d0373fb2dc91b59d231b67e35ad636a0648cc29"},
+    {file = "piphi_runtime_testkit_python-0.1.4-py3-none-any.whl", hash = "sha256:a48fe7c2a4f91430e3a395ef7cf9cafa401a31881d8180383a4d072c11e621a0"},
+    {file = "piphi_runtime_testkit_python-0.1.4.tar.gz", hash = "sha256:9a4f3c957f37a1607a8bb25bc8a8425943dfc37ea58dad579a3cd2476fab9e6b"},
 ]
 
 [[package]]
