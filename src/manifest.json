@@ -2,7 +2,7 @@
   "manifest_version": "1.0",
   "id": "awair-element-local-api",
   "name": "Awair Element (Local API)",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Integration for Awair Element devices over the local network",
   "maintainer": {
     "name": "PiPhi Network",
@@ -18,7 +18,7 @@
     "linux": {
       "type": "container",
       "container": {
-        "image": "piphinetwork/awair-element:0.1.13",
+        "image": "piphinetwork/awair-element:0.1.14",
         "ports": [
           {
             "container": 3665,
@@ -97,7 +97,11 @@
       "unit": "\u00b0C",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart", "gauge"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart",
+          "gauge"
+        ]
       }
     },
     "dew_point": {
@@ -108,7 +112,11 @@
       "unit": "\u00b0C",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart", "gauge"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart",
+          "gauge"
+        ]
       }
     },
     "humidity": {
@@ -119,7 +127,11 @@
       "unit": "%",
       "dashboard": {
         "default_widget": "gauge",
-        "recommended_widgets": ["gauge", "stat", "line_chart"]
+        "recommended_widgets": [
+          "gauge",
+          "stat",
+          "line_chart"
+        ]
       }
     },
     "absolute_humidity": {
@@ -130,7 +142,11 @@
       "unit": "g/m3",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart", "gauge"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart",
+          "gauge"
+        ]
       }
     },
     "co2": {
@@ -141,7 +157,11 @@
       "unit": "ppm",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart", "gauge"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart",
+          "gauge"
+        ]
       }
     },
     "co2_est": {
@@ -152,7 +172,11 @@
       "unit": "ppm",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart", "gauge"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart",
+          "gauge"
+        ]
       }
     },
     "co2_est_baseline": {
@@ -163,7 +187,11 @@
       "unit": "ppm",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart", "gauge"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart",
+          "gauge"
+        ]
       }
     },
     "voc": {
@@ -174,7 +202,11 @@
       "unit": "ppb",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart", "gauge"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart",
+          "gauge"
+        ]
       }
     },
     "voc_baseline": {
@@ -185,7 +217,11 @@
       "unit": "ppb",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart", "gauge"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart",
+          "gauge"
+        ]
       }
     },
     "voc_h2_raw": {
@@ -196,7 +232,10 @@
       "unit": "raw",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart"
+        ]
       }
     },
     "voc_ethanol_raw": {
@@ -207,7 +246,10 @@
       "unit": "raw",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart"
+        ]
       }
     },
     "pm25": {
@@ -218,7 +260,11 @@
       "unit": "ug/m3",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart", "gauge"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart",
+          "gauge"
+        ]
       }
     },
     "pm10_est": {
@@ -229,7 +275,11 @@
       "unit": "ug/m3",
       "dashboard": {
         "default_widget": "stat",
-        "recommended_widgets": ["stat", "line_chart", "gauge"]
+        "recommended_widgets": [
+          "stat",
+          "line_chart",
+          "gauge"
+        ]
       }
     },
     "score": {
@@ -240,7 +290,11 @@
       "unit": "%",
       "dashboard": {
         "default_widget": "gauge",
-        "recommended_widgets": ["gauge", "stat", "line_chart"]
+        "recommended_widgets": [
+          "gauge",
+          "stat",
+          "line_chart"
+        ]
       }
     },
     "refresh": {
@@ -250,7 +304,9 @@
       "access": "action",
       "dashboard": {
         "default_widget": "button",
-        "recommended_widgets": ["button"]
+        "recommended_widgets": [
+          "button"
+        ]
       }
     }
   },
