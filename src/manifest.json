@@ -91,177 +91,166 @@
   "capabilities": {
     "temperature": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "temperature",
+      "access": "read",
       "unit": "\u00b0C",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart", "gauge"]
       }
     },
     "dew_point": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "dew-point",
+      "access": "read",
       "unit": "\u00b0C",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart", "gauge"]
       }
     },
     "humidity": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "humidity",
+      "access": "read",
       "unit": "%",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "gauge"
+        "default_widget": "gauge",
+        "recommended_widgets": ["gauge", "stat", "line_chart"]
       }
     },
     "absolute_humidity": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "absolute-humidity",
+      "access": "read",
       "unit": "g/m3",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart", "gauge"]
       }
     },
     "co2": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "carbon-dioxide",
+      "access": "read",
       "unit": "ppm",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart", "gauge"]
       }
     },
     "co2_est": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "carbon-dioxide-estimate",
+      "access": "read",
       "unit": "ppm",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart", "gauge"]
       }
     },
     "co2_est_baseline": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "carbon-dioxide-baseline",
+      "access": "read",
       "unit": "ppm",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart", "gauge"]
       }
     },
     "voc": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "volatile-organic-compounds",
+      "access": "read",
       "unit": "ppb",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart", "gauge"]
       }
     },
     "voc_baseline": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "volatile-organic-compounds-baseline",
+      "access": "read",
       "unit": "ppb",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart", "gauge"]
       }
     },
     "voc_h2_raw": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "voc-hydrogen-raw",
+      "access": "read",
       "unit": "raw",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart"]
       }
     },
     "voc_ethanol_raw": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "voc-ethanol-raw",
+      "access": "read",
       "unit": "raw",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart"]
       }
     },
     "pm25": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "particulate-matter-2.5",
+      "access": "read",
       "unit": "ug/m3",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart", "gauge"]
       }
     },
     "pm10_est": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "particulate-matter-10-estimate",
+      "access": "read",
       "unit": "ug/m3",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "stat"
+        "default_widget": "stat",
+        "recommended_widgets": ["stat", "line_chart", "gauge"]
       }
     },
     "score": {
       "kind": "sensor",
+      "value_kind": "numeric",
+      "semantic_type": "air-quality-score",
+      "access": "read",
       "unit": "%",
       "dashboard": {
-        "allowed_widgets": [
-          "stat",
-          "line_chart",
-          "gauge"
-        ],
-        "default_widget": "gauge"
+        "default_widget": "gauge",
+        "recommended_widgets": ["gauge", "stat", "line_chart"]
       }
     },
     "refresh": {
       "kind": "action",
+      "value_kind": "command",
+      "semantic_type": "refresh",
+      "access": "action",
       "dashboard": {
-        "allowed_widgets": [
-          "button"
-        ],
-        "default_widget": "button"
+        "default_widget": "button",
+        "recommended_widgets": ["button"]
       }
     }
   },

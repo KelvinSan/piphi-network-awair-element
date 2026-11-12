@@ -39,12 +39,12 @@
       {"id": "humidity", "label": "Humidity", "kind": "binding", "binding_slot_id": "humidity", "allowed_actions": ["more-info", "history", "popout"], "default_action": "more-info"}
     ],
     "binding_slots": [
-      {"id": "score", "label": "Air quality score", "required": true, "binding_modes": ["read"], "capability_requirements": ["score"], "compatible_integration_ids": ["awair-element-local-api"]},
-      {"id": "co2", "label": "Carbon dioxide", "required": false, "binding_modes": ["read"], "capability_requirements": ["co2"], "compatible_integration_ids": ["awair-element-local-api"]},
-      {"id": "pm25", "label": "PM2.5", "required": false, "binding_modes": ["read"], "capability_requirements": ["pm25"], "compatible_integration_ids": ["awair-element-local-api"]},
-      {"id": "voc", "label": "VOC", "required": false, "binding_modes": ["read"], "capability_requirements": ["voc"], "compatible_integration_ids": ["awair-element-local-api"]},
-      {"id": "temperature", "label": "Temperature", "required": false, "binding_modes": ["read"], "capability_requirements": ["temperature"], "compatible_integration_ids": ["awair-element-local-api"]},
-      {"id": "humidity", "label": "Humidity", "required": false, "binding_modes": ["read"], "capability_requirements": ["humidity"], "compatible_integration_ids": ["awair-element-local-api"]}
+      {"id": "score", "label": "Air quality score", "required": true, "binding_modes": ["read"], "value_kinds": ["numeric"], "semantic_types": ["air-quality-score"]},
+      {"id": "co2", "label": "Carbon dioxide", "required": false, "binding_modes": ["read"], "value_kinds": ["numeric"], "semantic_types": ["carbon-dioxide"]},
+      {"id": "pm25", "label": "PM2.5", "required": false, "binding_modes": ["read"], "value_kinds": ["numeric"], "semantic_types": ["particulate-matter-2.5"]},
+      {"id": "voc", "label": "VOC", "required": false, "binding_modes": ["read"], "value_kinds": ["numeric"], "semantic_types": ["volatile-organic-compounds"]},
+      {"id": "temperature", "label": "Temperature", "required": false, "binding_modes": ["read"], "value_kinds": ["numeric"], "semantic_types": ["temperature"]},
+      {"id": "humidity", "label": "Humidity", "required": false, "binding_modes": ["read"], "value_kinds": ["numeric"], "semantic_types": ["humidity"]}
     ],
     "recipe": {"schema_version": "1", "layout": "grid", "columns": 2, "items": [
       {"type": "metric", "slot_id": "score", "label": "Air quality", "format": "percent", "domain": "air_quality", "emphasis": "hero", "action": {"type": "details", "label": "View air quality details"}},

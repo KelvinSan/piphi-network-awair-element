@@ -45,9 +45,8 @@ async def get_entities():
                 "entity_type": "sensor",
                 "capabilities": entity_capabilities,
                 "dashboard": {
-                    "allowed_widgets": ["stat", "line-chart", "gauge"],
                     "default_widget": "stat",
-                    "recommended_widgets": ["stat", "gauge"],
+                    "recommended_widgets": ["stat", "gauge", "line-chart"],
                 },
                 "device_ip": entry.get("device_ip"),
                 "device_mac": entry.get("device_mac"),

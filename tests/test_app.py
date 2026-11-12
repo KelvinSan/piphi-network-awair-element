@@ -753,6 +753,29 @@ def test_awair_manifest_exposes_all_latest_air_data_capabilities() -> None:
 
     assert expected <= capabilities
     assert expected <= entity_capabilities
+    assert all(
+        manifest["capabilities"][capability]["value_kind"] == "numeric"
+        and manifest["capabilities"][capability]["access"] == "read"
+        and manifest["capabilities"][capability]["semantic_type"]
+        and "allowed_widgets" not in manifest["capabilities"][capability]["dashboard"]
+        for capability in expected
+    )
+
+
+def test_awair_runtime_entities_emit_advisory_widget_recommendations() -> None:
+    reset_runtime_state()
+    registry.set("awair-1", {"config_id": "awair-1", "device_id": "awair-1"})
+
+    with TestClient(app) as client:
+        response = client.get("/entities")
+
+    assert response.status_code == 200
+    assert response.json()["entities"][0]["dashboard"]["recommended_widgets"] == [
+        "stat",
+        "gauge",
+        "line-chart",
+    ]
+    assert "allowed_widgets" not in response.json()["entities"][0]["dashboard"]
 
 
 def test_awair_behaviors_expose_all_numeric_metrics_as_conditions() -> None:

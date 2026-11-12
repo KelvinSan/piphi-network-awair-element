@@ -44,9 +44,16 @@ def test_air_quality_experience_matches_runtime_manifest() -> None:
     assert len(slots) == len(widget["binding_slots"])
     assert sum(slot["required"] for slot in slots.values()) == 1
     assert all(slot["binding_modes"] == ["read"] for slot in slots.values())
+    manifest_semantics = {
+        capability["semantic_type"]
+        for capability in manifest["capabilities"].values()
+        if capability.get("semantic_type")
+    }
     for slot in slots.values():
-        assert slot["compatible_integration_ids"] == [manifest["id"]]
-        assert set(slot["capability_requirements"]) <= set(manifest["capabilities"])
+        assert slot["value_kinds"] == ["numeric"]
+        assert set(slot["semantic_types"]) <= manifest_semantics
+        assert "compatible_integration_ids" not in slot
+        assert "capability_requirements" not in slot
 
     recipe_slots = {item["slot_id"] for item in widget["recipe"]["items"]}
     assert recipe_slots == set(slots)
